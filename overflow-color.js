@@ -13,7 +13,7 @@ function setBgColor(color) {
         ocStyleTag.parentNode.removeChild(ocStyleTag);
     }
 
-    var css = "body { background: " + color + "; }",
+    var css = "html { background: " + color + "; }",
     head = document.head || document.getElementsByTagName('head')[0];
     ocStyleTag = document.createElement("style");
 
@@ -30,14 +30,21 @@ function setBgColor(color) {
 
 function handleScroll() {
 
-    var diffTop = document.body.scrollTop;
-    var diffBottom = document.body.scrollHeight - (document.body.scrollTop + window.innerHeight);
-
-    if (diffTop < diffBottom && currentColor !== ocTopColor) {
-        setBgColor(ocTopColor);
-    }
-    else if (diffTop > diffBottom && currentColor !== ocBottomColor) {
+    if (document.body.scrollHeight === window.innerHeight) {
         setBgColor(ocBottomColor);
+    }
+    else {
+
+        var diffTop = document.body.scrollTop;
+        var diffBottom = document.body.scrollHeight - (document.body.scrollTop + window.innerHeight);
+
+        if (diffTop < diffBottom && currentColor !== ocTopColor) {
+            setBgColor(ocTopColor);
+        }
+        else if (diffTop > diffBottom && currentColor !== ocBottomColor) {
+            setBgColor(ocBottomColor);
+        }
+
     }
 
 }
@@ -64,13 +71,20 @@ function initOverflowColor() {
         ocBottomColor = ocTopColor;
     }
 
-    setBgColor(ocBottomColor);
+    if (document.body.scrollHeight > window.innerHeight) {
+        setBgColor(ocTopColor);
+    }
+    else {
+        setBgColor(ocBottomColor);
+    }
 
     if (typeof window.addEventListener !== "undefined") {
         window.addEventListener("scroll", handleScroll, false);
+        window.addEventListener("resize", handleScroll, false);
     }
     else {
         window.attachEvent("scroll", handleScroll);
+        window.attachEvent("resize", handleScroll);
     }
 
 }
