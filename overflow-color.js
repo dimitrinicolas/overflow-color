@@ -35,8 +35,8 @@ function handleScroll() {
     }
     else {
 
-        var diffTop = document.body.scrollTop;
-        var diffBottom = document.body.scrollHeight - (document.body.scrollTop + window.innerHeight);
+        var diffTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+        var diffBottom = document.body.scrollHeight - (diffTop + window.innerHeight);
 
         if (diffTop < diffBottom && currentColor !== ocTopColor) {
             setBgColor(ocTopColor);
