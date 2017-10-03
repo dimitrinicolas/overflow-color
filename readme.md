@@ -2,7 +2,9 @@
 
 Javascript script that automatically switch css html background color on smartphones.
 
-##Usage
+![Demo](gif.gif)
+
+## Usage
 
 You simply must add the script and two attributes to your body tag
 
