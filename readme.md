@@ -2,6 +2,8 @@
 
 Javascript script that automatically switch css html background color on smartphones.
 
+Try it on your smartphone : [git.io/overflow](https://dimitrinicolas.github.io/overflow-color/) ([https://dimitrinicolas.github.io/overflow-color/](https://dimitrinicolas.github.io/overflow-color/))
+
 ![Demo](gif.gif)
 
 This package is on npm
