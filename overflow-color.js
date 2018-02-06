@@ -5,6 +5,10 @@ var ocStyleTag;
 
 var currentColor;
 
+var bodyBackground;
+
+var bodyWrap;
+
 function setBgColor(color) {
 
     currentColor = color;
@@ -52,17 +56,32 @@ function handleScroll() {
 
 function initOverflowColor() {
 
-    var topEl,
-        bottomEl;
+    var topEl = document.querySelector('[data-oc-top]'),
+        bottomEl = document.querySelector('[data-oc-bottom]');
 
-    if (topEl = document.querySelector('[data-oc-top]')) {
+    if (topEl) {
         ocTopColor = topEl.getAttribute('data-oc-top');
     }
-    if (bottomEl = document.querySelector('[data-oc-bottom]');) {
+    if (bottomEl) {
         ocBottomColor = bottomEl.getAttribute('data-oc-bottom');
     }
 
     if (ocTopColor || ocBottomColor) {
+
+        var bodyComputedStyle = window.getComputedStyle(document.body, null);
+        bodyBackground = bodyComputedStyle.getPropertyValue('background');
+        if (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyBackground.substring(21, 17) === 'none') {
+            bodyBackground = 'white';
+        }
+        document.body.style.background = 'transparent';
+        bodyWrap = document.createElement('div');
+        bodyWrap.setAttribute('data-oc-wrap', '');
+        bodyWrap.style.background = bodyBackground;
+        for (var i = 0, l = document.body.childNodes.length; i < l; i++) {
+            bodyWrap.appendChild(document.body.childNodes[0]);
+        }
+        document.body.appendChild(bodyWrap);
+
         if (!ocTopColor && ocBottomColor) {
             ocTopColor = ocBottomColor;
         }
@@ -85,13 +104,19 @@ function initOverflowColor() {
             window.attachEvent('scroll', handleScroll);
             window.attachEvent('resize', handleScroll);
         }
+
     }
 
 }
 
-if (typeof document.addEventListener !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', initOverflowColor, false);
+if (document.readyState === "complete" || document.readyState === "loaded") {
+    initOverflowColor();
 }
 else {
-    document.attachEvent('onreadystatechange', initOverflowColor);
+    if (typeof document.addEventListener !== 'undefined') {
+        document.addEventListener('DOMContentLoaded', initOverflowColor, false);
+    }
+    else {
+        document.attachEvent('onreadystatechange', initOverflowColor);
+    }
 }

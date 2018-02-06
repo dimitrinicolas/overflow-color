@@ -1,0 +1,31 @@
+{
+  "name": "overflow-color",
+  "version": "2.0.0",
+  "description": "Automatically switch css html background color",
+  "main": "overflow-color.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimitrinicolas/overflow-color.git"
+  },
+  "keywords": [
+    "overflow",
+    "css",
+    "front-end",
+    "javascript"
+  ],
+  "author": "Dimitri NICOLAS <dimitri@fivecorp.fr>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dimitrinicolas/overflow-color/issues"
+  },
+  "homepage": "https://github.com/dimitrinicolas/overflow-color#readme",
+  "devDependencies": {
+    "uglify-js": "^3.3.9"
+  },
+  "scripts": {
+    "build": "uglifyjs overflow-color.js -o overflow-color.min.js -m"
+  }
+}
