@@ -70,7 +70,7 @@ function initOverflowColor() {
 
         var bodyComputedStyle = window.getComputedStyle(document.body, null);
         bodyBackground = bodyComputedStyle.getPropertyValue('background');
-        if (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyBackground.substring(21, 17) === 'none') {
+        if (bodyBackground === '' || (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyBackground.substring(21, 17) === 'none')) {
             bodyBackground = 'white';
         }
         document.body.style.background = 'transparent';
