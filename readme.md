@@ -1,6 +1,6 @@
 # Overflow color
 
-Javascript script that automatically switch css html background color on smartphones.
+A simple script that automatically switch CSS html background color according to scroll position.
 
 Try it on your smartphone : [git.io/overflow](https://dimitrinicolas.github.io/overflow-color/) ([https://dimitrinicolas.github.io/overflow-color/](https://dimitrinicolas.github.io/overflow-color/))
 
@@ -8,7 +8,7 @@ Try it on your smartphone : [git.io/overflow](https://dimitrinicolas.github.io/o
 
 This package is on npm
 ```console
-$ npm install --save overflow-color
+$ npm i overflow-color
 ```
 
 ## Usage
@@ -33,9 +33,14 @@ when the document is loaded:
 <head>
     <!-- ... -->
     <style>
+        /* your style */
         body {
             background: lightgrey;
         }
+    </style>
+    <style>
+        /* style added by the script */
+        html { background: blue; }
     </style>
 </head>
 <body data-oc-top="red" data-oc-bottom="blue" style="background: transparent;">
