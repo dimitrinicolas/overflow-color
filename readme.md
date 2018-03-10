@@ -1,10 +1,10 @@
 # Overflow color
 
-A simple script that automatically switch CSS html background color according to scroll position.
+![Demo](gif.gif)
 
 Try it on your smartphone : [git.io/overflow](https://dimitrinicolas.github.io/overflow-color/) ([https://dimitrinicolas.github.io/overflow-color/](https://dimitrinicolas.github.io/overflow-color/))
 
-![Demo](gif.gif)
+A simple script that automatically switch CSS html background color according to scroll position.
 
 This package is on npm
 ```console
