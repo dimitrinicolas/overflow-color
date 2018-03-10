@@ -13,13 +13,29 @@ $ npm i overflow-color
 
 ## Usage
 
-You simply must add the script and two attributes to your body tag
+You simply must add the script and the two attributes `data-oc-top` and `data-oc-bottom` to your body tag
 
 ```html
 <body data-oc-top="red" data-oc-bottom="blue">
     <!-- ... -->
     <script src="overflow-color.min.js"></script>
 </body>
+```
+
+You can use the shortcut `data-oc` by separating the two values with a comma
+
+```html
+<body data-oc="red,blue">
+```
+
+#### With a module bundler
+
+You can import this package with a simple require or import
+
+```javascript
+require('overflow-color');
+// with ES6+
+import overflowColor from 'overflow-color';
 ```
 
 ## CSS tricks
@@ -58,4 +74,4 @@ Minify script
 $ npm run build
 ```
 
-## [License](LICENSE.txt)
+## [License](LICENSE)

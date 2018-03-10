@@ -57,13 +57,26 @@ function handleScroll() {
 function initOverflowColor() {
 
     var topEl = document.querySelector('[data-oc-top]'),
-        bottomEl = document.querySelector('[data-oc-bottom]');
+        bottomEl = document.querySelector('[data-oc-bottom]'),
+        shortcutEl = document.querySelector('[data-oc]');
 
-    if (topEl) {
-        ocTopColor = topEl.getAttribute('data-oc-top');
+    if (shortcutEl) {
+        var split = shortcutEl.getAttribute('data-oc').split(',');
+        if (split.length > 1) {
+            ocTopColor = split[0];
+            ocBottomColor = split[1];
+        }
+        else if (split.length === 1) {
+            ocTopColor = ocBottomColor = split[0];
+        }
     }
-    if (bottomEl) {
-        ocBottomColor = bottomEl.getAttribute('data-oc-bottom');
+    else {
+        if (topEl) {
+            ocTopColor = topEl.getAttribute('data-oc-top');
+        }
+        if (bottomEl) {
+            ocBottomColor = bottomEl.getAttribute('data-oc-bottom');
+        }
     }
 
     if (ocTopColor || ocBottomColor) {
@@ -109,7 +122,7 @@ function initOverflowColor() {
 
 }
 
-if (document.readyState === "complete" || document.readyState === "loaded") {
+if (document.readyState === 'complete' || document.readyState === 'loaded') {
     initOverflowColor();
 }
 else {
