@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-
 		<title>Overflow color demo</title>
-
         <style>
 
+			html {
+				background: blue;
+			}
             body {
-                display: block;
                 margin: 0;
-                padding: 0;
+				font-family: sans-serif;
+				background: white;
             }
 
             .header, .footer {
-                padding: 22px 12px;
+                padding: 22px 20px;
                 color: white;
             }
 
@@ -28,7 +28,7 @@
             }
 
             p {
-                padding: 10px 12px;
+                padding: 18px 20px;
 				margin: 0;
             }
 			p:nth-of-type(even) {
@@ -36,9 +36,8 @@
 			}
 
         </style>
-
 	</head>
-	<body data-oc-top="red" data-oc-bottom="blue">
+	<body data-oc="red,blue">
 
 		<div class="header">header</div>
 
@@ -48,8 +47,7 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium culpa aspernatur reprehenderit itaque id voluptatibus. Ea repellat quae non molestiae numquam minus voluptates, beatae. Sunt enim earum eum repellat. Ab?</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium culpa aspernatur reprehenderit itaque id voluptatibus. Ea repellat quae non molestiae numquam minus voluptates, beatae. Sunt enim earum eum repellat. Ab?</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium culpa aspernatur reprehenderit itaque id voluptatibus. Ea repellat quae non molestiae numquam minus voluptates, beatae. Sunt enim earum eum repellat. Ab?</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
 
 		<div class="footer">footer</div>
 
