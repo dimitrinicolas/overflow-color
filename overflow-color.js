@@ -122,14 +122,12 @@ function initOverflowColor() {
 
 }
 
-if (document.readyState === 'complete' || document.readyState === 'loaded') {
+if (['interactive', 'complete', 'loaded'].indexOf(document.readyState) >= 0) {
     initOverflowColor();
 }
+else if (typeof document.addEventListener !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', initOverflowColor, false);
+}
 else {
-    if (typeof document.addEventListener !== 'undefined') {
-        document.addEventListener('DOMContentLoaded', initOverflowColor, false);
-    }
-    else {
-        document.attachEvent('onreadystatechange', initOverflowColor);
-    }
+    document.attachEvent('onreadystatechange', initOverflowColor);
 }

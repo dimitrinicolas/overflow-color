@@ -1,6 +1,6 @@
 {
   "name": "overflow-color",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Automatically switch css html background color",
   "main": "overflow-color.js",
   "scripts": {
