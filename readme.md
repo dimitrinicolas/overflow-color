@@ -18,7 +18,7 @@ You simply must add the browser minified script [dist/overflow-color.umd.min.js]
 ```html
 <body data-oc-top="red" data-oc-bottom="blue">
     <!-- ... -->
-    <script src="dist/overflow-color.umd.min.js"></script>
+    <script src="dist/overflow-color.umd.min.js" async></script>
 </body>
 ```
 
@@ -38,7 +38,7 @@ require('overflow-color');
 import overflowColor from 'overflow-color';
 ```
 
-You don't have anything else to do, the script is automatically launched.
+You don't have anything else to do, the script is automatically launched when the DOM content is loaded.
 
 ## CSS tricks
 #### Behind the Scenes
@@ -64,7 +64,7 @@ when the document is loaded:
 <body data-oc-top="red" data-oc-bottom="blue" style="background: transparent;">
     <div data-oc-wrap style="background: lightgrey;">
         <!-- ... -->
-        <script src="overflow-color.umd.min.js"></script>
+        <script src="overflow-color.umd.min.js" async></script>
     </div>
 </body>
 ```
