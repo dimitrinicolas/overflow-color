@@ -13,12 +13,12 @@ $ npm i overflow-color
 
 ## Usage
 
-You simply must add the script and the two attributes `data-oc-top` and `data-oc-bottom` to your body tag
+You simply must add the browser minified script [dist/overflow-color.umd.min.js](dist/overflow-color.umd.min.js) and the two attributes `data-oc-top` and `data-oc-bottom` to your body tag
 
 ```html
 <body data-oc-top="red" data-oc-bottom="blue">
     <!-- ... -->
-    <script src="overflow-color.min.js"></script>
+    <script src="dist/overflow-color.umd.min.js"></script>
 </body>
 ```
 
@@ -37,6 +37,8 @@ require('overflow-color');
 // with ES6+
 import overflowColor from 'overflow-color';
 ```
+
+You don't have anything else to do, the script is automatically launched.
 
 ## CSS tricks
 #### Behind the Scenes
@@ -62,7 +64,7 @@ when the document is loaded:
 <body data-oc-top="red" data-oc-bottom="blue" style="background: transparent;">
     <div data-oc-wrap style="background: lightgrey;">
         <!-- ... -->
-        <script src="overflow-color.min.js"></script>
+        <script src="overflow-color.umd.min.js"></script>
     </div>
 </body>
 ```

@@ -1,10 +1,12 @@
 {
   "name": "overflow-color",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Automatically switch css html background color",
-  "main": "overflow-color.js",
+  "main": "dist/overflow-color.cjs.js",
+  "module": "dist/overflow-color.esm.js",
+  "browser": "dist/overflow-color.umd.js",
   "scripts": {
-    "build": "uglifyjs overflow-color.js -o overflow-color.min.js -m"
+    "build": "rollup -c && uglifyjs dist/overflow-color.umd.js -o dist/overflow-color.umd.min.js -m"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,13 @@
   },
   "homepage": "https://github.com/dimitrinicolas/overflow-color#readme",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-node-resolve": "^3.3.0",
     "uglify-js": "^3.3.9"
   }
 }
