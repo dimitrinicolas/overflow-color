@@ -1,93 +1,84 @@
-let ocTopColor;
-let ocBottomColor;
-
-let ocStyleTag;
-
+let topColor;
+let bottomColor;
 let currentColor;
 
-let bodyBackground;
-
-let bodyWrap;
+let styleTag;
 
 const setBgColor = function(color) {
 
-  currentColor = color;
+	if (currentColor !== color) {
+		currentColor = color;
 
-  if (ocStyleTag) {
-    ocStyleTag.parentNode.removeChild(ocStyleTag);
-  }
+		let css = `html{background:${color};}`;
 
-  let css = 'html { background: ' + color + '; }';
-  let head = document.head || document.getElementsByTagName('head')[0];
+		if (!styleTag) {
+			styleTag = document.createElement('style');
+			let head = document.head || document.getElementsByTagName('head')[0];
+			head.appendChild(styleTag);
+		}
 
-  ocStyleTag = document.createElement('style');
-
-  if (ocStyleTag.styleSheet) {
-    ocStyleTag.styleSheet.cssText = css;
-  }
-  else {
-    ocStyleTag.appendChild(document.createTextNode(css));
-  }
-
-  head.appendChild(ocStyleTag);
+		if (styleTag.styleSheet) {
+		  styleTag.styleSheet.cssText = css;
+		}
+		else {
+			styleTag.innerHTML = css;
+		}
+	}
 
 }
 
-const handleScroll = function () {
+const checkScroll = function() {
 
   if (document.body.scrollHeight === window.innerHeight) {
-    setBgColor(ocBottomColor);
+    setBgColor(bottomColor);
   }
   else {
-
-    let diffTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-    let diffBottom = document.body.scrollHeight - (diffTop + window.innerHeight);
-
-    if (diffTop < diffBottom && currentColor !== ocTopColor) {
-      setBgColor(ocTopColor);
-    }
-    else if (diffTop > diffBottom && currentColor !== ocBottomColor) {
-      setBgColor(ocBottomColor);
-    }
-
+		let scrollFromMiddle = window.innerHeight - document.body.scrollHeight + 2 * Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+		setBgColor(scrollFromMiddle < 0 ? topColor : bottomColor);
   }
 
 }
 
-function initOverflowColor() {
+const initOverflowColor = function() {
 
-  let topEl = document.querySelector('[data-oc-top]');
-  let bottomEl = document.querySelector('[data-oc-bottom]');
   let shortcutEl = document.querySelector('[data-oc]');
-
   if (shortcutEl) {
     let split = shortcutEl.getAttribute('data-oc').split(',');
     if (split.length > 1) {
-      ocTopColor = split[0];
-      ocBottomColor = split[1];
+      topColor = split[0];
+      bottomColor = split[1];
     }
     else if (split.length === 1) {
-      ocTopColor = ocBottomColor = split[0];
+      topColor = bottomColor = split[0];
     }
   }
   else {
+    let topEl = document.querySelector('[data-oc-top]');
+    let bottomEl = document.querySelector('[data-oc-bottom]');
     if (topEl) {
-      ocTopColor = topEl.getAttribute('data-oc-top');
+      topColor = topEl.getAttribute('data-oc-top');
     }
     if (bottomEl) {
-      ocBottomColor = bottomEl.getAttribute('data-oc-bottom');
+      bottomColor = bottomEl.getAttribute('data-oc-bottom');
     }
   }
 
-  if (ocTopColor || ocBottomColor) {
+  if (topColor || bottomColor) {
+
+		if (!topColor && bottomColor) {
+			topColor = bottomColor;
+		}
+		else if (topColor && !bottomColor) {
+			bottomColor = topColor;
+		}
 
     let bodyComputedStyle = window.getComputedStyle(document.body, null);
-    bodyBackground = bodyComputedStyle.getPropertyValue('background');
+    let bodyBackground = bodyComputedStyle.getPropertyValue('background');
     if (bodyBackground === '' || (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyBackground.substring(21, 17) === 'none')) {
       bodyBackground = 'white';
     }
     document.body.style.background = 'transparent';
-    bodyWrap = document.createElement('div');
+    let bodyWrap = document.createElement('div');
     bodyWrap.setAttribute('data-oc-wrap', '');
     bodyWrap.style.background = bodyBackground;
     for (let i = 0, l = document.body.childNodes.length; i < l; i++) {
@@ -95,27 +86,14 @@ function initOverflowColor() {
     }
     document.body.appendChild(bodyWrap);
 
-    if (!ocTopColor && ocBottomColor) {
-      ocTopColor = ocBottomColor;
-    }
-    else if (ocTopColor && !ocBottomColor) {
-      ocBottomColor = ocTopColor;
-    }
-
-    if (document.body.scrollHeight > window.innerHeight) {
-      setBgColor(ocTopColor);
-    }
-    else {
-      setBgColor(ocBottomColor);
-    }
-
+    checkScroll();
     if (typeof window.addEventListener !== 'undefined') {
-      window.addEventListener('scroll', handleScroll, false);
-      window.addEventListener('resize', handleScroll, false);
+      window.addEventListener('scroll', checkScroll, false);
+      window.addEventListener('resize', checkScroll, false);
     }
     else {
-      window.attachEvent('scroll', handleScroll);
-      window.attachEvent('resize', handleScroll);
+      window.attachEvent('scroll', checkScroll);
+      window.attachEvent('resize', checkScroll);
     }
 
   }

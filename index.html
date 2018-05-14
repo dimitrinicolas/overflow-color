@@ -4,54 +4,52 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Overflow color demo</title>
-        <style>
-
-			html {
+			<style>
+			html,
+			.footer {
 				background: blue;
 			}
-            body {
-                margin: 0;
+			body {
+				margin: 0;
 				font-family: sans-serif;
 				background: white;
-            }
-
-            .header, .footer {
-                padding: 22px 20px;
-                color: white;
-            }
-
-            .header {
-                background: red;
-            }
-            .footer {
-                background: blue;
-            }
-
-            p {
-                padding: 18px 20px;
+			}
+			.header, .footer {
+				padding: 22px 20px;
+				color: white;
+			}
+			.header {
+				background: red;
+			}
+			p {
+				padding: 18px 20px;
 				margin: 0;
-            }
+			}
 			p:nth-of-type(even) {
 				background: #e0e0e0;
 			}
-
-        </style>
+			a {
+				color: white;
+			}
+			</style>
 	</head>
 	<body data-oc="red,blue">
 
-		<div class="header">header</div>
+		<div class="header">
+			<a href="https://github.com/dimitrinicolas/overflow-color">overflow-color</a>
+		</div>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium culpa aspernatur reprehenderit itaque id voluptatibus. Ea repellat quae non molestiae numquam minus voluptates, beatae. Sunt enim earum eum repellat. Ab?</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium culpa aspernatur reprehenderit itaque id voluptatibus. Ea repellat quae non molestiae numquam minus voluptates, beatae. Sunt enim earum eum repellat. Ab?</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium culpa aspernatur reprehenderit itaque id voluptatibus. Ea repellat quae non molestiae numquam minus voluptates, beatae. Sunt enim earum eum repellat. Ab?</p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam fugiat architecto, rem dignissimos, autem, eius blanditiis recusandae ut voluptatibus, earum atque similique eligendi obcaecati laborum doloremque. Consequatur, ad laborum.</p>
 
 		<div class="footer">footer</div>
 
-        <script src="overflow-color.js"></script>
+		<script src="dist/overflow-color.umd.min.js" async></script>
 
 	</body>
 </html>

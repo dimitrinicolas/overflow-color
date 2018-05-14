@@ -61,19 +61,22 @@ when the document is loaded:
         html { background: blue; }
     </style>
 </head>
-<body data-oc-top="red" data-oc-bottom="blue" style="background: transparent;">
+<body data-oc="red,blue" style="background: transparent; /* style added by the script */ ">
+    <!-- wrapper added by the script -->
     <div data-oc-wrap style="background: lightgrey;">
-        <!-- ... -->
-        <script src="overflow-color.umd.min.js" async></script>
+        <!-- ... your body's childs -->
+        <script src="dist/overflow-color.umd.min.js" async></script>
     </div>
 </body>
 ```
 
 ## Build
 
-Minify script
+Compile with Rollup
 ```console
 $ npm run build
 ```
 
-## [License](LICENSE)
+## License
+
+This project is licensed under the [MIT license](LICENSE).
