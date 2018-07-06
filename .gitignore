@@ -4,3 +4,4 @@ logs
 *.log*
 tmp
 .DS_Store
+yarn.lock

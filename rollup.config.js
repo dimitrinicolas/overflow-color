@@ -5,7 +5,7 @@ import pkg from './package.json';
 
 export default [
 	{
-		input: 'src/main.js',
+		input: 'src/index.js',
 		output: {
 			name: 'overflowColor',
 			file: pkg.browser,
@@ -29,7 +29,7 @@ export default [
 		]
 	},
 	{
-		input: 'src/main.js',
+		input: 'src/index.js',
 		external: ['ms'],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
