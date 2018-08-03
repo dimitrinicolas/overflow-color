@@ -1,6 +1,4 @@
-# Overflow color
-![0 dependency](https://img.shields.io/badge/dependencies-0-brightgreen.svg)
-![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/overflow-color.svg)
+# Overflow color ![0 dependency](https://img.shields.io/badge/dependencies-0-brightgreen.svg) ![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/overflow-color.svg)
 
 [![Demo](gif.gif)](https://dimitrinicolas.github.io/overflow-color/)
 
