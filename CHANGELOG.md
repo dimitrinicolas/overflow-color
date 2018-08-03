@@ -3,7 +3,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## 2.1.4 - 2018-08-03
 ### Changed
-- Improved performance by throttling the scroll event listener throught requestAnimationFrame.
+- Improved performance by throttling the scroll event listener through requestAnimationFrame.
 - Now default exporting a force `checkScroll` function
 
 ## 2.1.3 - 2018-05-14
