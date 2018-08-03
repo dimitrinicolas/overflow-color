@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/dimitrinicolas/overflow-color/issues"
   },
-  "homepage": "https://github.com/dimitrinicolas/overflow-color#readme",
+  "homepage": "https://github.com/dimitrinicolas/overflow-color",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",
