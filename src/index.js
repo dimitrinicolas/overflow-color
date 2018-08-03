@@ -6,6 +6,22 @@ let bottomColor;
 let currentBgColor;
 let styleTag;
 
+let lastScrollY;
+let ticking = false;
+
+/**
+ * Request animation frame polyfill
+ * @param {function} callback 
+ */
+const requestAnimFrame = (() => {
+  return window.requestAnimationFrame
+    || window.webkitRequestAnimationFrame
+    || window.mozRequestAnimationFrame
+    || (callback => {
+      window.setTimeout(callback, 1000 / 60);
+    });
+})();
+
 /**
  * If needed, set the new new color as
  * html background
@@ -36,11 +52,19 @@ const setBgColor = (color) => {
  * topColor and the bottomColor
  */
 const checkScroll = () => {
-  if (document.body.scrollHeight === window.innerHeight) {
-    setBgColor(bottomColor);
-  } else {
-    const scrollFromMiddle = window.innerHeight - document.body.scrollHeight + 2 * Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-    setBgColor(scrollFromMiddle < 0 ? topColor : bottomColor);
+  lastScrollY = window.scrollY;
+  if (!ticking) {
+    requestAnimFrame(function() {
+      const scrollHeight = document.body.scrollHeight;
+      const innerHeight = window.innerHeight;
+      if (scrollHeight === innerHeight) {
+        setBgColor(bottomColor);
+      } else {
+        setBgColor(innerHeight - scrollHeight + 2 * lastScrollY < 0 ? topColor : bottomColor);
+      }
+      ticking = false;
+    });
+    ticking = true;
   }
 }
 
@@ -93,6 +117,9 @@ const initOverflowColor = () => {
       bodyWrapperEl.appendChild(document.body.childNodes[0]);
     }
     document.body.appendChild(bodyWrapperEl);
+    document.addEventListener('touchmove', (event) => {
+      console.log(event);
+    }, false);
 
     checkScroll();
     if (typeof window.addEventListener !== 'undefined') {
@@ -114,4 +141,4 @@ if (['interactive', 'complete', 'loaded'].indexOf(document.readyState) !== -1) {
   document.attachEvent('onreadystatechange', initOverflowColor);
 }
 
-export default initOverflowColor;
+export default checkScroll;

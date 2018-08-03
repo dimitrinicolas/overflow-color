@@ -1,6 +1,6 @@
 {
   "name": "overflow-color",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Automatically switch css html background color",
   "main": "dist/overflow-color.cjs.js",
   "module": "dist/overflow-color.esm.js",
@@ -13,7 +13,9 @@
     "url": "git+https://github.com/dimitrinicolas/overflow-color.git"
   },
   "keywords": [
+    "overscroll",
     "overflow",
+    "color",
     "css",
     "front-end",
     "javascript"

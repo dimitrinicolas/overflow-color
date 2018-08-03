@@ -1,8 +1,10 @@
 # Overflow color
+![0 dependency](https://img.shields.io/badge/dependencies-0-brightgreen.svg)
+![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/overflow-color.svg)
 
-![Demo](gif.gif)
+[![Demo](gif.gif)](https://dimitrinicolas.github.io/overflow-color/)
 
-Try it on your smartphone : [git.io/overflow](https://dimitrinicolas.github.io/overflow-color/) ([https://dimitrinicolas.github.io/overflow-color/](https://dimitrinicolas.github.io/overflow-color/))
+Try it on your smartphone or with a trackpad on MacOS: [git.io/overflow](https://dimitrinicolas.github.io/overflow-color/) ([https://dimitrinicolas.github.io/overflow-color/](https://dimitrinicolas.github.io/overflow-color/))
 
 A simple script that automatically switch CSS html background color according to scroll position.
 
@@ -35,10 +37,22 @@ You can import this package with a simple require or import
 ```javascript
 require('overflow-color');
 // with ES6+
-import overflowColor;
+import 'overflow-color';
 ```
 
 You don't have anything else to do, the script is automatically launched when the DOM content is loaded.
+
+#### Manually re-check scroll position
+
+When you make huge change to the DOM (e.g. changing page throught Angular) and that the vertical scroll position stayed at the top, the new document height may be smaller than the previous one, and `overflow-color` should set the overflow color to the bottom one, but it has not be called by scroll event. In this specific case, you can use the default exported function `checkScroll`:
+
+```javascript
+import checkScroll from 'overflow-color';
+
+/** Change DOM */
+
+checkScroll();
+```
 
 ## CSS tricks, Behind the Scenes
 
@@ -69,6 +83,14 @@ when the document is loaded:
     </div>
 </body>
 ```
+
+## Browsers compatibility
+
+I successfully tested this library, on: 
+**MaxOs High Sierra**: Safari v11, Google Chrome v67 and Opera v51 
+**iOS 11**: Safari, Google Chrome v68, Firefox 12 and Microsoft Edge v42
+
+Unfortunately, Firefox on MacOS and Opera Mini on iOS doesn't show the overscroll color even without this library.
 
 ## Build
 

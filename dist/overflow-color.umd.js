@@ -12,6 +12,19 @@
   var currentBgColor = void 0;
   var styleTag = void 0;
 
+  var lastScrollY = void 0;
+  var ticking = false;
+
+  /**
+   * Request animation frame polyfill
+   * @param {function} callback 
+   */
+  var requestAnimFrame = function () {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+  }();
+
   /**
    * If needed, set the new new color as
    * html background
@@ -42,11 +55,19 @@
    * topColor and the bottomColor
    */
   var checkScroll = function checkScroll() {
-    if (document.body.scrollHeight === window.innerHeight) {
-      setBgColor(bottomColor);
-    } else {
-      var scrollFromMiddle = window.innerHeight - document.body.scrollHeight + 2 * Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-      setBgColor(scrollFromMiddle < 0 ? topColor : bottomColor);
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+      requestAnimFrame(function () {
+        var scrollHeight = document.body.scrollHeight;
+        var innerHeight = window.innerHeight;
+        if (scrollHeight === innerHeight) {
+          setBgColor(bottomColor);
+        } else {
+          setBgColor(innerHeight - scrollHeight + 2 * lastScrollY < 0 ? topColor : bottomColor);
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
   };
 
@@ -96,6 +117,9 @@
         bodyWrapperEl.appendChild(document.body.childNodes[0]);
       }
       document.body.appendChild(bodyWrapperEl);
+      document.addEventListener('touchmove', function (event) {
+        console.log(event);
+      }, false);
 
       checkScroll();
       if (typeof window.addEventListener !== 'undefined') {
@@ -116,6 +140,6 @@
     document.attachEvent('onreadystatechange', initOverflowColor);
   }
 
-  return initOverflowColor;
+  return checkScroll;
 
 })));
