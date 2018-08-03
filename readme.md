@@ -35,19 +35,19 @@ You can import this package with a simple require or import
 ```javascript
 require('overflow-color');
 // with ES6+
-import overflowColor from 'overflow-color';
+import overflowColor;
 ```
 
 You don't have anything else to do, the script is automatically launched when the DOM content is loaded.
 
-## CSS tricks
-#### Behind the Scenes
+## CSS tricks, Behind the Scenes
 
 This library will wrap all the body content inside a `<div data-oc-wrap>`.
 Then it set to the wrapper the same background as the body, and set body's background to `transparent`.
 
 when the document is loaded:
 ```html
+<!doctype html>
 <head>
     <!-- ... -->
     <style>
