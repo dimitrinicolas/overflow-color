@@ -82,10 +82,12 @@ when the document is loaded:
 </body>
 ```
 
+You can read the [Designer News discussion](https://www.designernews.co/stories/91663-switch-html-background-color-in-order-to-get-two-overflow-scrolling-colors-on-smartphones) about the different tried tricks.
+
 ## Browsers compatibility
 
-I successfully tested this library, on: 
-**MaxOs High Sierra**: Safari v11, Google Chrome v67 and Opera v51 
+I successfully tested this library, on:  
+**MaxOs High Sierra**: Safari v11, Google Chrome v67 and Opera v51   
 **iOS 11**: Safari, Google Chrome v68, Firefox 12 and Microsoft Edge v42
 
 Unfortunately, Firefox on MacOS and Opera Mini on iOS doesn't show the overscroll color even without this library.

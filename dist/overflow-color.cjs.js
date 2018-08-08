@@ -13,7 +13,7 @@ var ticking = false;
 
 /**
  * Request animation frame polyfill
- * @param {function} callback 
+ * @param {function} callback
  */
 var requestAnimFrame = function () {
   return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -24,7 +24,7 @@ var requestAnimFrame = function () {
 /**
  * If needed, set the new new color as
  * html background
- * @param {string} color 
+ * @param {string} color
  */
 var setBgColor = function setBgColor(color) {
   if (currentBgColor !== color) {

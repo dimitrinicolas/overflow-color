@@ -11,7 +11,7 @@ let ticking = false;
 
 /**
  * Request animation frame polyfill
- * @param {function} callback 
+ * @param {function} callback
  */
 const requestAnimFrame = (() => {
   return window.requestAnimationFrame
@@ -25,12 +25,12 @@ const requestAnimFrame = (() => {
 /**
  * If needed, set the new new color as
  * html background
- * @param {string} color 
+ * @param {string} color
  */
-const setBgColor = (color) => {
+const setBgColor = color => {
   if (currentBgColor !== color) {
     currentBgColor = color;
-    let css = `html { background: ${currentBgColor}; }`;
+    const css = `html { background: ${currentBgColor}; }`;
 
     if (!styleTag) {
       styleTag = document.createElement('style');
@@ -44,7 +44,7 @@ const setBgColor = (color) => {
       styleTag.innerHTML = css;
     }
   }
-}
+};
 
 /**
  * Checks the scroll position and determines
@@ -54,7 +54,7 @@ const setBgColor = (color) => {
 const checkScroll = () => {
   lastScrollY = window.scrollY;
   if (!ticking) {
-    requestAnimFrame(function() {
+    requestAnimFrame(() => {
       const scrollHeight = document.body.scrollHeight;
       const innerHeight = window.innerHeight;
       if (scrollHeight === innerHeight) {
@@ -66,7 +66,7 @@ const checkScroll = () => {
     });
     ticking = true;
   }
-}
+};
 
 /**
  * Gets the two overflow colors and init the
@@ -79,12 +79,10 @@ const initOverflowColor = () => {
     if (split.length > 1) {
       topColor = split[0];
       bottomColor = split[1];
-    }
-    else if (split.length === 1) {
+    } else if (split.length === 1) {
       topColor = bottomColor = split[0];
     }
-  }
-  else {
+  } else {
     const topAttributeEl = document.querySelector(`[${ATTRIBUTE_PREFIX}-top]`);
     const bottomAttributeEl = document.querySelector(`[${ATTRIBUTE_PREFIX}-bottom]`);
     if (topAttributeEl) {
@@ -98,14 +96,19 @@ const initOverflowColor = () => {
   if (topColor || bottomColor) {
     if (!topColor && bottomColor) {
       topColor = bottomColor;
-    }
-    else if (topColor && !bottomColor) {
+    } else if (topColor && !bottomColor) {
       bottomColor = topColor;
     }
 
     const bodyComputedStyle = window.getComputedStyle(document.body, null);
     let bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
-    if (bodyComputedBackground === '' || (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none')) {
+    if (
+      bodyComputedBackground === ''
+      || (
+        bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)'
+        && bodyComputedBackground.substring(21, 17) === 'none'
+      )
+    ) {
       bodyComputedBackground = 'white';
     }
     document.body.style.background = 'transparent';
@@ -117,7 +120,7 @@ const initOverflowColor = () => {
       bodyWrapperEl.appendChild(document.body.childNodes[0]);
     }
     document.body.appendChild(bodyWrapperEl);
-    document.addEventListener('touchmove', (event) => {
+    document.addEventListener('touchmove', event => {
       console.log(event);
     }, false);
 
@@ -125,13 +128,12 @@ const initOverflowColor = () => {
     if (typeof window.addEventListener !== 'undefined') {
       window.addEventListener('scroll', checkScroll, false);
       window.addEventListener('resize', checkScroll, false);
-    }
-    else {
+    } else {
       window.attachEvent('scroll', checkScroll);
       window.attachEvent('resize', checkScroll);
     }
   }
-}
+};
 
 if (['interactive', 'complete', 'loaded'].indexOf(document.readyState) !== -1) {
   initOverflowColor();
