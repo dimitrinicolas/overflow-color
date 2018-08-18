@@ -104,12 +104,20 @@ I successfully tested this library, on:
 Unfortunately, Firefox on MacOS and Opera Mini on iOS doesn't show the 
 over-scroll color even without this library.
 
+This library pass an E2E test through Chrome with Cypress.
+
 ## Build
 
 Compile with Rollup:
 
 ```console
 $ npm run build
+```
+
+Build and test with Cypress:
+
+```console
+$ npm test
 ```
 
 ## License

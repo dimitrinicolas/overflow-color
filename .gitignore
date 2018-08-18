@@ -1,7 +1,10 @@
+.DS_Store
+tmp
+
 node_modules
 .npm-debug.log
 logs
 *.log*
-tmp
-.DS_Store
-yarn.lock
+
+cypress/videos
+cypress/screenshots
