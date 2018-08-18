@@ -124,8 +124,8 @@ $ npm test
 
 This project is licensed under the [MIT license](LICENSE).
 
-[tavis badge]: https://travis-ci.org/dimitrinicolas/overflow-color.svg?branch=master
-[tavis link]: https://travis-ci.org/dimitrinicolas/overflow-color
+[travis badge]: https://travis-ci.org/dimitrinicolas/overflow-color.svg?branch=master
+[travis link]: https://travis-ci.org/dimitrinicolas/overflow-color
 [dependency badge]: https://img.shields.io/badge/dependencies-0-brightgreen.svg
 [size badge]: https://img.shields.io/bundlephobia/minzip/overflow-color.svg
 
