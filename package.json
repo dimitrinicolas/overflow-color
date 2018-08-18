@@ -6,6 +6,7 @@
   "module": "dist/overflow-color.esm.js",
   "browser": "dist/overflow-color.umd.js",
   "scripts": {
+    "publish": "clean-publish --files cypress",
     "start:ci": "http-server ./ -a localhost -p 8000 -c-1",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open",
@@ -37,6 +38,7 @@
     "babel-eslint": "^8.2.6",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.7.0",
+    "clean-publish": "^1.0.9",
     "cypress": "^3.1.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
