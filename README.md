@@ -1,4 +1,4 @@
-# Overflow color [![Build Status][travis badge]][travis link]![0 dependency][dependency badge] ![npm bundle size (minified + gzip)][size badge]
+# overflow-color [![Build Status][travis badge]][travis link] ![0 dependency][dependency badge] ![npm bundle size (minified + gzip)][size badge]
 
 [![Demo](gif.gif)][demo]
 
