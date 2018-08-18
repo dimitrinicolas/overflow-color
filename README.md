@@ -1,4 +1,4 @@
-# Overflow color ![0 dependency][dependency badge] ![npm bundle size (minified + gzip)][size badge]
+# Overflow color [![Build Status][travis badge]][travis link]![0 dependency][dependency badge] ![npm bundle size (minified + gzip)][size badge]
 
 [![Demo](gif.gif)][demo]
 
@@ -124,6 +124,8 @@ $ npm test
 
 This project is licensed under the [MIT license](LICENSE).
 
+[tavis badge]: https://travis-ci.org/dimitrinicolas/overflow-color.svg?branch=master
+[tavis link]: https://travis-ci.org/dimitrinicolas/overflow-color
 [dependency badge]: https://img.shields.io/badge/dependencies-0-brightgreen.svg
 [size badge]: https://img.shields.io/bundlephobia/minzip/overflow-color.svg
 
