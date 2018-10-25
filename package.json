@@ -1,6 +1,6 @@
 {
   "name": "overflow-color",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Automatically switch css html background color",
   "main": "dist/overflow-color.cjs.js",
   "module": "dist/overflow-color.esm.js",

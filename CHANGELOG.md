@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.1.5 - 2018-10-25
+### Changed
+- Improved performance by passively listening to scroll event
+
 ## 2.1.4 - 2018-08-03
 ### Changed
 - Improved performance by throttling the scroll event listener through requestAnimationFrame.

@@ -111,14 +111,11 @@ var initOverflowColor = function initOverflowColor() {
       bodyWrapperEl.appendChild(document.body.childNodes[0]);
     }
     document.body.appendChild(bodyWrapperEl);
-    document.addEventListener('touchmove', function (event) {
-      console.log(event);
-    }, false);
 
     checkScroll();
     if (typeof window.addEventListener !== 'undefined') {
-      window.addEventListener('scroll', checkScroll, false);
-      window.addEventListener('resize', checkScroll, false);
+      window.addEventListener('scroll', checkScroll, { passive: true });
+      window.addEventListener('resize', checkScroll, { passive: true });
     } else {
       window.attachEvent('scroll', checkScroll);
       window.attachEvent('resize', checkScroll);
