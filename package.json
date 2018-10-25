@@ -6,7 +6,7 @@
   "module": "dist/overflow-color.esm.js",
   "browser": "dist/overflow-color.umd.js",
   "scripts": {
-    "publish": "clean-publish --files cypress",
+    "publish": "clean-publish --files cypress fixtures cypress.json",
     "start:ci": "http-server ./ -a localhost -p 8000 -c-1",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open",

@@ -1,6 +1,6 @@
 # overflow-color [![Build Status][travis badge]][travis link] ![0 dependency][dependency badge] ![npm bundle size (minified + gzip)][size badge]
 
-[![Demo](gif.gif)][demo]
+[![Demo](fixtures/demo.gif)][demo]
 
 Try it on your smartphone or with a trackpad on MacOS: [git.io/overflow][demo] 
 ([https://dimitrinicolas.github.io/overflow-color/][demo])
