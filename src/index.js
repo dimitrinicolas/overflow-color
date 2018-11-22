@@ -14,12 +14,14 @@ let ticking = false;
  * @param {function} callback
  */
 const requestAnimFrame = (() => {
-  return window.requestAnimationFrame
+  return (
+    window.requestAnimationFrame
     || window.webkitRequestAnimationFrame
     || window.mozRequestAnimationFrame
     || (callback => {
       window.setTimeout(callback, 1000 / 60);
-    });
+    })
+  );
 })();
 
 /**
@@ -53,7 +55,7 @@ const setBgColor = color => {
  */
 const checkScroll = () => {
   lastScrollY = window.scrollY;
-  if (!ticking) {
+  if (!ticking && (topColor || bottomColor)) {
     requestAnimFrame(() => {
       const scrollHeight = document.body.scrollHeight;
       const innerHeight = window.innerHeight;
@@ -69,10 +71,12 @@ const checkScroll = () => {
 };
 
 /**
- * Gets the two overflow colors and init the
- * window scroll and resize event listeners
+ * Update colors and check scroll
  */
-const initOverflowColor = () => {
+const updateOverflowColor = () => {
+  topColor = null;
+  bottomColor = null;
+
   const shortcutAttributeEl = document.querySelector(`[${ATTRIBUTE_PREFIX}]`);
   if (shortcutAttributeEl) {
     const split = shortcutAttributeEl.getAttribute(ATTRIBUTE_PREFIX).split(',');
@@ -93,42 +97,56 @@ const initOverflowColor = () => {
     }
   }
 
-  if (topColor || bottomColor) {
-    if (!topColor && bottomColor) {
-      topColor = bottomColor;
-    } else if (topColor && !bottomColor) {
-      bottomColor = topColor;
-    }
+  if (!topColor && bottomColor) {
+    topColor = bottomColor;
+  } else if (topColor && !bottomColor) {
+    bottomColor = topColor;
+  }
 
-    const bodyComputedStyle = window.getComputedStyle(document.body, null);
-    let bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
-    if (
-      bodyComputedBackground === ''
-      || (
-        bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)'
-        && bodyComputedBackground.substring(21, 17) === 'none'
-      )
-    ) {
-      bodyComputedBackground = 'white';
-    }
-    document.body.style.background = 'transparent';
+  const bodyComputedStyle = window.getComputedStyle(document.body, null);
+  let bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
+  if (
+    bodyComputedBackground === ''
+    || (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none')
+  ) {
+    bodyComputedBackground = 'white';
+  }
+  document.body.style.background = 'transparent';
 
-    const bodyWrapperEl = document.createElement('div');
-    bodyWrapperEl.setAttribute(`${ATTRIBUTE_PREFIX}-wrap`, '');
-    bodyWrapperEl.style.background = bodyComputedBackground;
-    for (let i = 0, l = document.body.childNodes.length; i < l; i++) {
-      bodyWrapperEl.appendChild(document.body.childNodes[0]);
-    }
-    document.body.appendChild(bodyWrapperEl);
+  checkScroll();
+};
 
-    checkScroll();
-    if (typeof window.addEventListener !== 'undefined') {
-      window.addEventListener('scroll', checkScroll, { passive: true });
-      window.addEventListener('resize', checkScroll, { passive: true });
-    } else {
-      window.attachEvent('scroll', checkScroll);
-      window.attachEvent('resize', checkScroll);
-    }
+/**
+ * Gets the two overflow colors and init the
+ * window scroll and resize event listeners
+ */
+const initOverflowColor = () => {
+  const bodyComputedStyle = window.getComputedStyle(document.body, null);
+  let bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
+  if (
+    bodyComputedBackground === ''
+    || (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none')
+  ) {
+    bodyComputedBackground = 'white';
+  }
+  document.body.style.background = 'transparent';
+
+  const bodyWrapperEl = document.createElement('div');
+  bodyWrapperEl.setAttribute(`${ATTRIBUTE_PREFIX}-wrap`, '');
+  bodyWrapperEl.style.background = bodyComputedBackground;
+  for (let i = 0, l = document.body.childNodes.length; i < l; i++) {
+    bodyWrapperEl.appendChild(document.body.childNodes[0]);
+  }
+  document.body.appendChild(bodyWrapperEl);
+
+  updateOverflowColor();
+
+  if (typeof window.addEventListener !== 'undefined') {
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', checkScroll, { passive: true });
+  } else {
+    window.attachEvent('scroll', checkScroll);
+    window.attachEvent('resize', checkScroll);
   }
 };
 
@@ -140,4 +158,6 @@ if (['interactive', 'complete', 'loaded'].indexOf(document.readyState) !== -1) {
   document.attachEvent('onreadystatechange', initOverflowColor);
 }
 
-export default checkScroll;
+window.updateOverflowColor = updateOverflowColor;
+
+export default updateOverflowColor;

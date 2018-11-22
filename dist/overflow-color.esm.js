@@ -50,7 +50,7 @@ var setBgColor = function setBgColor(color) {
  */
 var checkScroll = function checkScroll() {
   lastScrollY = window.scrollY;
-  if (!ticking) {
+  if (!ticking && (topColor || bottomColor)) {
     requestAnimFrame(function () {
       var scrollHeight = document.body.scrollHeight;
       var innerHeight = window.innerHeight;
@@ -66,10 +66,12 @@ var checkScroll = function checkScroll() {
 };
 
 /**
- * Gets the two overflow colors and init the
- * window scroll and resize event listeners
+ * Update colors and check scroll
  */
-var initOverflowColor = function initOverflowColor() {
+var updateOverflowColor = function updateOverflowColor() {
+  topColor = null;
+  bottomColor = null;
+
   var shortcutAttributeEl = document.querySelector('[' + ATTRIBUTE_PREFIX + ']');
   if (shortcutAttributeEl) {
     var split = shortcutAttributeEl.getAttribute(ATTRIBUTE_PREFIX).split(',');
@@ -90,36 +92,50 @@ var initOverflowColor = function initOverflowColor() {
     }
   }
 
-  if (topColor || bottomColor) {
-    if (!topColor && bottomColor) {
-      topColor = bottomColor;
-    } else if (topColor && !bottomColor) {
-      bottomColor = topColor;
-    }
+  if (!topColor && bottomColor) {
+    topColor = bottomColor;
+  } else if (topColor && !bottomColor) {
+    bottomColor = topColor;
+  }
 
-    var bodyComputedStyle = window.getComputedStyle(document.body, null);
-    var bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
-    if (bodyComputedBackground === '' || bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none') {
-      bodyComputedBackground = 'white';
-    }
-    document.body.style.background = 'transparent';
+  var bodyComputedStyle = window.getComputedStyle(document.body, null);
+  var bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
+  if (bodyComputedBackground === '' || bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none') {
+    bodyComputedBackground = 'white';
+  }
+  document.body.style.background = 'transparent';
 
-    var bodyWrapperEl = document.createElement('div');
-    bodyWrapperEl.setAttribute(ATTRIBUTE_PREFIX + '-wrap', '');
-    bodyWrapperEl.style.background = bodyComputedBackground;
-    for (var i = 0, l = document.body.childNodes.length; i < l; i++) {
-      bodyWrapperEl.appendChild(document.body.childNodes[0]);
-    }
-    document.body.appendChild(bodyWrapperEl);
+  checkScroll();
+};
 
-    checkScroll();
-    if (typeof window.addEventListener !== 'undefined') {
-      window.addEventListener('scroll', checkScroll, { passive: true });
-      window.addEventListener('resize', checkScroll, { passive: true });
-    } else {
-      window.attachEvent('scroll', checkScroll);
-      window.attachEvent('resize', checkScroll);
-    }
+/**
+ * Gets the two overflow colors and init the
+ * window scroll and resize event listeners
+ */
+var initOverflowColor = function initOverflowColor() {
+  var bodyComputedStyle = window.getComputedStyle(document.body, null);
+  var bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
+  if (bodyComputedBackground === '' || bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none') {
+    bodyComputedBackground = 'white';
+  }
+  document.body.style.background = 'transparent';
+
+  var bodyWrapperEl = document.createElement('div');
+  bodyWrapperEl.setAttribute(ATTRIBUTE_PREFIX + '-wrap', '');
+  bodyWrapperEl.style.background = bodyComputedBackground;
+  for (var i = 0, l = document.body.childNodes.length; i < l; i++) {
+    bodyWrapperEl.appendChild(document.body.childNodes[0]);
+  }
+  document.body.appendChild(bodyWrapperEl);
+
+  updateOverflowColor();
+
+  if (typeof window.addEventListener !== 'undefined') {
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', checkScroll, { passive: true });
+  } else {
+    window.attachEvent('scroll', checkScroll);
+    window.attachEvent('resize', checkScroll);
   }
 };
 
@@ -131,4 +147,6 @@ if (['interactive', 'complete', 'loaded'].indexOf(document.readyState) !== -1) {
   document.attachEvent('onreadystatechange', initOverflowColor);
 }
 
-export default checkScroll;
+window.updateOverflowColor = updateOverflowColor;
+
+export default updateOverflowColor;

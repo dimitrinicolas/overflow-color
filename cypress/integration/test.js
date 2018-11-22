@@ -29,4 +29,21 @@ context('Test', () => {
     cy.scrollTo(0);
     cy.get('html').should('have.css', 'background-color', 'rgb(255, 0, 0)');
   });
+
+  it('update body attribute', () => {
+    cy.get('body').invoke('attr', 'data-oc', 'lime,yellow');
+    cy.scrollTo(0);
+    cy.window()
+      .then(
+        win => new Cypress.Promise(resolve => {
+          win.updateOverflowColor();
+          resolve();
+        })
+      )
+      .then(() => {
+        cy.get('html').should('have.css', 'background-color', 'rgb(0, 255, 0)');
+        cy.get('p:last-of-type').scrollIntoView();
+        cy.get('html').should('have.css', 'background-color', 'rgb(255, 255, 0)');
+      });
+  });
 });
