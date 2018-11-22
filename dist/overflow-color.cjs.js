@@ -125,10 +125,17 @@ var initOverflowColor = function initOverflowColor() {
   var bodyWrapperEl = document.createElement('div');
   bodyWrapperEl.setAttribute(ATTRIBUTE_PREFIX + '-wrap', '');
   bodyWrapperEl.style.background = bodyComputedBackground;
-  for (var i = 0, l = document.body.childNodes.length; i < l; i++) {
-    bodyWrapperEl.appendChild(document.body.childNodes[0]);
+  for (var i = document.body.childNodes.length - 1; i > 0; i--) {
+    var child = document.body.childNodes[i];
+    if (typeof child.getAttribute !== 'function' || child.getAttribute(ATTRIBUTE_PREFIX + '-outside') === null) {
+      bodyWrapperEl.insertBefore(child, bodyWrapperEl.childNodes[0]);
+    }
   }
-  document.body.appendChild(bodyWrapperEl);
+  if (document.body.childNodes.length) {
+    document.body.insertBefore(bodyWrapperEl, document.body.childNodes[0]);
+  } else {
+    document.body.appendChild(bodyWrapperEl);
+  }
 
   updateOverflowColor();
 

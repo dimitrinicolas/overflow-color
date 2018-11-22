@@ -69,6 +69,9 @@ This library will wrap all the body content inside a `<div data-oc-wrap>`.
 Then it set to the wrapper the same background as the `body`, and set `body`'s 
 background to `transparent`.
 
+Add the `data-oc-outside` attribute to any body's immediate children that you
+don't want to be included into this wrap element at DOM content load.
+
 when the document is loaded:
 
 ```html

@@ -46,4 +46,16 @@ context('Test', () => {
         cy.get('html').should('have.css', 'background-color', 'rgb(255, 255, 0)');
       });
   });
+
+  it('outside element', () => {
+    cy.get('body')
+      .find('> [data-oc-outside]')
+      .should('exist');
+    cy.get('[data-oc-wrap]')
+      .find('[data-oc-outside]')
+      .should('not.exist');
+    cy.get('[data-oc-wrap]')
+      .find('+ [data-oc-outside]')
+      .should('exist');
+  });
 });

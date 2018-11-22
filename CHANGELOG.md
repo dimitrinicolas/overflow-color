@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.3.0 - 2018-11-22
+### Added
+- A `data-oc-outside` attribute to exclude a body's immediate children to be put inside `data-oc-wrap` element
+
 ## 2.2.0 - 2018-11-22
 ### Added
 - The default exported function is now `update` and check for attribute and scroll change
