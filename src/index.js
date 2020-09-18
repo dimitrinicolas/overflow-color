@@ -15,10 +15,10 @@ let ticking = false;
  */
 const requestAnimFrame = (() => {
   return (
-    window.requestAnimationFrame
-    || window.webkitRequestAnimationFrame
-    || window.mozRequestAnimationFrame
-    || (callback => {
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    ((callback) => {
       window.setTimeout(callback, 1000 / 60);
     })
   );
@@ -29,22 +29,10 @@ const requestAnimFrame = (() => {
  * html background
  * @param {string} color
  */
-const setBgColor = color => {
+const setBgColor = (color) => {
   if (currentBgColor !== color) {
     currentBgColor = color;
-    const css = `html { background: ${currentBgColor}; }`;
-
-    if (!styleTag) {
-      styleTag = document.createElement('style');
-      const head = document.head || document.getElementsByTagName('head')[0];
-      head.appendChild(styleTag);
-    }
-
-    if (styleTag.styleSheet) {
-      styleTag.styleSheet.cssText = css;
-    } else {
-      styleTag.innerHTML = css;
-    }
+    document.documentElement.style.backgroundColor = color;
   }
 };
 
@@ -56,14 +44,18 @@ const setBgColor = color => {
 const checkScroll = () => {
   lastScrollY = window.scrollY;
   if (!ticking && (topColor || bottomColor)) {
+    const { scrollHeight } = document.body;
+    const { innerHeight } = window;
+    
     requestAnimFrame(() => {
-      const scrollHeight = document.body.scrollHeight;
-      const innerHeight = window.innerHeight;
-      if (scrollHeight === innerHeight) {
+      if (lastScrollY > 0) {
         setBgColor(bottomColor);
-      } else {
-        setBgColor(innerHeight - scrollHeight + 2 * lastScrollY < 0 ? topColor : bottomColor);
       }
+
+      if (innerHeight - scrollHeight + 2 * lastScrollY < 0) {
+        setBgColor(topColor);
+      }
+
       ticking = false;
     });
     ticking = true;
@@ -76,7 +68,7 @@ const checkScroll = () => {
 const updateOverflowColor = () => {
   topColor = null;
   bottomColor = null;
-
+  
   const shortcutAttributeEl = document.querySelector(`[${ATTRIBUTE_PREFIX}]`);
   if (shortcutAttributeEl) {
     const split = shortcutAttributeEl.getAttribute(ATTRIBUTE_PREFIX).split(',');
@@ -96,23 +88,30 @@ const updateOverflowColor = () => {
       bottomColor = bottomAttributeEl.getAttribute(`${ATTRIBUTE_PREFIX}-bottom`);
     }
   }
-
+  
   if (!topColor && bottomColor) {
     topColor = bottomColor;
   } else if (topColor && !bottomColor) {
     bottomColor = topColor;
   }
-
+  
   const bodyComputedStyle = window.getComputedStyle(document.body, null);
   let bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
   if (
-    bodyComputedBackground === ''
-    || (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none')
+    bodyComputedBackground === '' ||
+    (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' &&
+      bodyComputedBackground.substring(21, 17) === 'none')
   ) {
     bodyComputedBackground = 'white';
   }
-  document.body.style.background = 'transparent';
-
+  
+  const { scrollHeight } = document.body;
+  const { innerHeight } = window;
+  
+  if (scrollHeight === innerHeight) {
+    setBgColor(topColor);
+  }
+  
   checkScroll();
 };
 
@@ -124,19 +123,23 @@ const initOverflowColor = () => {
   const bodyComputedStyle = window.getComputedStyle(document.body, null);
   let bodyComputedBackground = bodyComputedStyle.getPropertyValue('background');
   if (
-    bodyComputedBackground === ''
-    || (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' && bodyComputedBackground.substring(21, 17) === 'none')
+    bodyComputedBackground === '' ||
+    (bodyComputedStyle.getPropertyValue('background-color') === 'rgba(0, 0, 0, 0)' &&
+      bodyComputedBackground.substring(21, 17) === 'none')
   ) {
     bodyComputedBackground = 'white';
   }
   document.body.style.background = 'transparent';
-
+  
   const bodyWrapperEl = document.createElement('div');
   bodyWrapperEl.setAttribute(`${ATTRIBUTE_PREFIX}-wrap`, '');
   bodyWrapperEl.style.background = bodyComputedBackground;
   for (let i = document.body.childNodes.length - 1; i > 0; i--) {
     const child = document.body.childNodes[i];
-    if (typeof child.getAttribute !== 'function' || child.getAttribute(`${ATTRIBUTE_PREFIX}-outside`) === null) {
+    if (
+      typeof child.getAttribute !== 'function' ||
+      child.getAttribute(`${ATTRIBUTE_PREFIX}-outside`) === null
+    ) {
       bodyWrapperEl.insertBefore(child, bodyWrapperEl.childNodes[0]);
     }
   }
@@ -145,9 +148,9 @@ const initOverflowColor = () => {
   } else {
     document.body.appendChild(bodyWrapperEl);
   }
-
+  
   updateOverflowColor();
-
+  
   if (typeof window.addEventListener !== 'undefined') {
     window.addEventListener('scroll', checkScroll, { passive: true });
     window.addEventListener('resize', checkScroll, { passive: true });
