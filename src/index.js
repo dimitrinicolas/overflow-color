@@ -7,6 +7,7 @@ let currentBgColor;
 let styleTag;
 
 let lastScrollY;
+let secondLastScrollY;
 let ticking = false;
 
 /**
@@ -54,15 +55,18 @@ const setBgColor = color => {
  * topColor and the bottomColor
  */
 const checkScroll = () => {
+  secondLastScrollY = lastScrollY;
   lastScrollY = window.scrollY;
   if (!ticking && (topColor || bottomColor)) {
     requestAnimFrame(() => {
-      const scrollHeight = document.body.scrollHeight;
-      const innerHeight = window.innerHeight;
-      if (scrollHeight === innerHeight) {
+      if (lastScrollY > secondLastScrollY) {
+        // We're scrolling down the page: use the bottom overflow
+        // color in case we hit the bottom.
         setBgColor(bottomColor);
       } else {
-        setBgColor(innerHeight - scrollHeight + 2 * lastScrollY < 0 ? topColor : bottomColor);
+        // We're scrolling up the page: use the top overflow color
+        // in case we hit the top.
+        setBgColor(topColor);
       }
       ticking = false;
     });
